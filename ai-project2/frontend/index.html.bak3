@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="/favicon.ico"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Web site created using create-react-app"/>
+    <link rel="apple-touch-icon" href="/logo192.png"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <title>영상 분석 민원 사이트</title>
+    <script defer="defer" src="/static/js/main.cecfdefb.js"></script>
+    <link href="/static/css/main.e6c13ad2.css" rel="stylesheet">
+    <script>
+    (function() {
+        var lastClickedPost = null;
+        var isHandlingHistory = false;
+        
+        window.addEventListener('load', function() {
+            // 초기 히스토리 상태 설정
+            if (!history.state) {
+                history.replaceState({view: 'main'}, ''   );
+            }
+            
+            // 민원 글 클릭 이벤트 캡처
+            setTimeout(function() {
+                document.body.addEventListener('click', function(e) {
+                    if (isHandlingHistory) return;
+                    
+                    var target = e.target.closest('td');
+                    if (target && target.style && target.style.cursor === 'pointer') {
+                        var row = target.closest('tr');
+                        if (row) {
+                            var cells = row.querySelectorAll('td');
+                            if (cells.length >= 2) {
+                                lastClickedPost = {
+                                    title: cells[1].textContent.trim(),
+                                    element: target
+                                };
+                            }
+                        }
+                        
+                        setTimeout(function() {
+                            var h1 = document.querySelector('h1');
+                            if (h1 && !h1.textContent.includes('게시판')) {
+                                history.pushState({view: 'detail', post: lastClickedPost ? lastClickedPost.title : null}, ''   , '?detail');
+                            }
+                        }, 100);
+                    }
+                }, true);
+            }, 1000);
+            
+            // 뒤로가기/앞으로가기 처리
+            window.addEventListener('popstate', function(event) {
+                if (isHandlingHistory) return;
+                isHandlingHistory = true;
+                
+                setTimeout(function() {
+                    if (event.state && event.state.view === 'detail') {
+                        // 앞으로가기: 상세페이지로
+                        if (lastClickedPost && lastClickedPost.element) {
+                            if (document.body.contains(lastClickedPost.element)) {
+                                lastClickedPost.element.click();
+                            } else {
+                                // 요소가 없으면 제목으로 찾기
+                                var tds = document.querySelectorAll('td');
+                                for (var i = 0; i < tds.length; i++) {
+                                    if (tds[i].textContent.trim() === lastClickedPost.title) {
+                                        tds[i].click();
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        // 뒤로가기: 목록으로
+                        var buttons = document.querySelectorAll('button');
+                        for (var i = 0; i < buttons.length; i++) {
+                            if (buttons[i].textContent.includes('뒤로가기')) {
+                                buttons[i].click();
+                                break;
+                            }
+                        }
+                    }
+                    
+                    setTimeout(function() {
+                        isHandlingHistory = false;
+                    }, 500);
+                }, 50);
+            });
+        });
+    })();
+    </script>
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+</body>
+</html>

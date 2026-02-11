@@ -1,0 +1,37 @@
+{
+  "posts": [
+    {
+      "id": 3,
+      "name": "일이삼사",
+      "author": "일이삼사",
+      "phone": "",
+      "email": "1234@naver.com",
+      "title": "자전거를 찾아주세요",
+      "content": "자전거를 잃어버렸어요 자전거를 찾아주세요",
+      "password": "1234",
+      "status": "COMPLETED",
+      "created_at": "2026-02-11T12:14:13.131701",
+      "videos": "[]",
+      "original_video_filename": "",
+      "analyzed_video_path": "[\"/video/analyzed_3_1.mp4\"]",
+      "target_address": "대구 북구 산격동 1234"
+    },
+    {
+      "id": 23,
+      "name": "1234",
+      "author": "1234",
+      "phone": "",
+      "email": "123@naver.com",
+      "title": "목격자를 찾습니다",
+      "content": "목격자를 찾아요 2026년 02월 05일 오후 1시 경 교차로 목격자를 찾습니다",
+      "password": "1234",
+      "status": "PENDING",
+      "created_at": "2026-02-11T14:30:25.585925",
+      "videos": "[]",
+      "original_video_filename": "",
+      "analyzed_video_path": null,
+      "target_address": "대구광역시 북구 복현동 1234"
+    }
+  ],
+  "next_id": 24
+}

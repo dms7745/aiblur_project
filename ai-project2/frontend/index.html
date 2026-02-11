@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="icon" href="/favicon.ico"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Web site created using create-react-app"/>
+    <link rel="apple-touch-icon" href="/logo192.png"/>
+    <link rel="manifest" href="/manifest.json"/>
+    <title>영상 분석 민원 사이트</title>
+    <style>
+        html, body {
+            background-color: rgb(233, 233, 233) !important;
+            margin: 0;
+            padding: 0;
+        }
+        #root {
+            padding-top: 40px !important;
+            background-color: rgb(233, 233, 233) !important;
+            min-height: 100vh;
+        }
+        #root > div {
+            background-color: rgb(233, 233, 233) !important;
+        }
+    </style>
+    <script>
+    (function() {
+        window.scrollTo(0, 0);
+        
+        function watchForChanges() {
+            var lastPageTitle = '';
+            
+            var observer = new MutationObserver(function(mutations) {
+                var bodyText = document.body.innerText;
+                
+                // 페이지 변경 감지 시 최상단으로 스크롤
+                var currentTitle = document.querySelector('h1');
+                var titleText = currentTitle ? currentTitle.textContent : '';
+                if (titleText !== lastPageTitle) {
+                    lastPageTitle = titleText;
+                    window.scrollTo(0, 0);
+                }
+                
+                // 배경색 강제 적용
+                var rootDiv = document.getElementById('root');
+                if (rootDiv) {
+                    rootDiv.style.paddingTop = '40px';
+                    rootDiv.style.backgroundColor = 'rgb(233, 233, 233)';
+                    rootDiv.style.minHeight = '100vh';
+                    var firstChild = rootDiv.firstElementChild;
+                    if (firstChild) {
+                        firstChild.style.backgroundColor = 'rgb(233, 233, 233)';
+                    }
+                }
+                
+                // "영상 분석 중" 화면 감지
+                if (bodyText.includes('영상 분석 중') || 
+                    bodyText.includes('분석 중입니다') || 
+                    bodyText.includes('진행 중')) {
+                    
+                    var buttons = document.querySelectorAll('button');
+                    for (var i = 0; i < buttons.length; i++) {
+                        var btn = buttons[i];
+                        if (btn.textContent.includes('뒤로가기') && !btn.hasAttribute('data-modified')) {
+                            btn.setAttribute('data-modified', 'true');
+                            
+                            // 텍스트만 변경 (스타일 유지)
+                            btn.textContent = '민원목록';
+                            
+                            // 버튼 위치만 오른쪽으로 (margin-left: auto 사용)
+                            btn.style.marginLeft = 'auto';
+                            btn.style.display = 'block';
+                            
+                            // 클릭 시 홈으로 이동
+                            btn.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                window.location.href = '/';
+                            }, true);
+                        }
+                    }
+                }
+                
+                // "처리 성공" 다이얼로그 닫기 버튼 감지
+                if (bodyText.includes('처리 성공') || bodyText.includes('상태가 변경되었습니다')) {
+                    var allElements = document.querySelectorAll('button, span, div');
+                    for (var j = 0; j < allElements.length; j++) {
+                        var el = allElements[j];
+                        if (el.textContent.trim() === '닫기' && !el.hasAttribute('data-modified')) {
+                            el.setAttribute('data-modified', 'true');
+                            el.addEventListener('click', function() {
+                                setTimeout(function() {
+                                    window.location.href = '/';
+                                }, 50);
+                            }, true);
+                        }
+                    }
+                }
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true,
+                characterData: true
+            });
+        }
+        
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+            watchForChanges();
+        });
+        window.addEventListener('DOMContentLoaded', function() {
+            window.scrollTo(0, 0);
+            watchForChanges();
+        });
+        window.addEventListener('popstate', function() {
+            window.scrollTo(0, 0);
+        });
+    })();
+    </script>
+    <script defer="defer" src="/static/js/main.cecfdefb.js"></script>
+    <link href="/static/css/main.e6c13ad2.css" rel="stylesheet">
+</head>
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+</body>
+</html>

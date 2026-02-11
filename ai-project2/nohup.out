@@ -1,0 +1,23 @@
+nohup: ignoring input
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+W0000 00:00:1770811757.371037 3433722 inference_feedback_manager.cc:114] Feedback manager requires a model with a single signature inference. Disabling support for feedback tensors.
+============================================================
+🚀 AI Blur System v3.0 - MediaPipe + MCP
+============================================================
+✅ MediaPipe Face Detector loaded
+Model summary (fused): 72 layers, 11,126,358 parameters, 0 gradients, 28.4 GFLOPs
+✅ YOLO License Plate model loaded & fused
+✅ ByteTrack tracking enabled
+✅ Loaded 2 posts from /opt/ai/backend/posts_data.json
+
+🚀 Starting AI Blur Server with MCP...
+   MCP Endpoint: /mcp/status
+   API Keys: mcp_admin_key_2024, mcp_viewer_key_2024
+
+INFO:     Started server process [3433672]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 98] error while attempting to bind on address ('0.0.0.0', 8003): address already in use
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
